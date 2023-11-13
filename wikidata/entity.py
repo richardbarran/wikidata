@@ -178,7 +178,9 @@ class Entity(collections.abc.Mapping, collections.abc.Hashable):
     def __getitem__(self, key: 'Entity') -> object:
         result = self.getlist(key)
         if result:
-            return result[0]
+            if len(result) == 1:
+                return result[0]
+            return result
         raise KeyError(key)
 
     def getlist(self, key: 'Entity') -> Sequence[object]:
